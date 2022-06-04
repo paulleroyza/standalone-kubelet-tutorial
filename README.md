@@ -17,8 +17,8 @@ gcloud compute instances create standalone-kubelet \
   --async \
   --boot-disk-size 200 \
   --can-ip-forward \
-  --image-family coreos-stable \
-  --image-project coreos-cloud \
+  --image-family fedora-coreos-stable  \
+  --image-project fedora-coreos-cloud \
   --machine-type n1-standard-1 \
   --tags standalone-kubelet
 ```
@@ -36,14 +36,13 @@ gcloud compute firewall-rules create allow-standalone-kubelet \
 SSH into the `standalone-kubelet` compute instance:
 
 ```
-gcloud compute ssh standalone-kubelet
+gcloud compute ssh core@standalone-kubelet
 ```
 
 Download the Kubelet systemd unit file:
 
 ```
-wget -q --show-progress --https-only --timestamping \
-  https://raw.githubusercontent.com/kelseyhightower/standalone-kubelet-tutorial/master/kubelet.service
+curl -O https://raw.githubusercontent.com/kelseyhightower/standalone-kubelet-tutorial/master/kubelet.service
 ```
 
 Move the `kubelet.service` unit file to the systemd configuration directory:
